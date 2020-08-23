@@ -6,7 +6,7 @@ This is a reference app for advertising in the background with the Overflow Area
 
 1. Obtain an Apple Developer account
 2. Install XCode 11.5 or newer
-3. Plug in an iPhone with iOS 13.0 or newer to your Mac, and authorize it as a development device with XCode
+3. Plug in an iPhone with iOS 13.x or iOS 14 device to your Mac, and authorize it as a development device with XCode
 4. Using XCode open this project OverflowAreaBeaconRef.xcodeproj
 5. If needed, change the team and package of the project to match your Apple developer account.
 6. Choose your phone as the destination and then choose Product -> Run from XCode
@@ -31,6 +31,27 @@ The beacon type will also be shown (iBeacon vs. OverflowArea).  Typically Overfl
 2020-08-23 17:47:44.845180-0400 OverflowAreaBeaconRef[488:76358] I just read iBeacon advert with major: 1 minor: 1277
 2020-08-23 17:47:44.909125-0400 OverflowAreaBeaconRef[488:76648] I just read overflow area advert with major: 1 minor: 1277
 ```
+## API
+
+The following API is implementd by the AppDelegate:
+
+```
+protocol FusedBeaconInterface {
+    func configure(iBeaconUuid: UUID, overflowMatchingByte: UInt8, major: UInt16, minor: UInt16, measuredPower: Int8)
+    func startTx() -> Bool
+    func stopTx()
+    func startScanning(delegate: OverflowDetectorDelegate) -> Bool
+    func stopScanning()
+}
+
+
+protocol OverflowDetectorDelegate {
+// type can be "iBeacon" or "OverflowArea". proximityUuid, and distance are only populated for iBeacon
+    func didDetectBeacon(type: String, major: UInt16, minor: UInt16, rssi: Int, proximityUuid: UUID?, distance: Double?)
+}
+```
+
+
 
 ## Pitfalls
 
@@ -46,7 +67,7 @@ especially on developer devices.  Below
 
 * Blutetooth turned off - Nothing will be detected
 
-* Bluetooth permission not granted - No OverflowArea beacons will be detected. No iBeacon will be transmitted
+* Bluetooth permission not granted - No OverflowArea beacons will be detected. No iBeacon will be transmitted:0
 
 * Airplane mode - Nothing will be detected or transmitted
 
@@ -64,3 +85,12 @@ especially on developer devices.  Below
 
 * Emitting overflow advertisements in the foreground.  While the reference app is designed to emit iBeacon in the foreground and overflow in the background, it is easy to modify an app to accidentally send overflow area adverts in the foreground.  When this happens, the advertisement will be corrupted by one bit not being set.  This is caused by that bit going into a standard service UUID advertisement instead of the overflow area.  This bit is unpredictable.
 
+### Changes for iOS 14
+
+As of iOS 14, starting a new advertisement in the background is disallowed.  This means it is not possible to do either of the following:
+
+1. Rotate the OverflowArea advertisement to avoid collisions.   The CollisionAvoider.swift must have rotate set to false.  Setting it to true is deprecated.  A new collision avoidance startegry will be needed for iOS 14.
+
+2. Switch from iBeacon to Overflow Area when moving to the background.  As a result, we must leave Overflow Area adverts going in the foreground so that when the app shifts to the background, they will already be started.  iBeacon is also advertised in the foreground, but it will stop automatically when the app moves to the background.
+
+This app has been updated with iOS 14 in mind, effecitvely applying the changes above to iOS 13 even though they are not expressedly needed for that platform.
