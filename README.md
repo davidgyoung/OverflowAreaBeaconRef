@@ -1,0 +1,66 @@
+# Overview
+
+This is a reference app for advertising in the background with the Overflow Area to encode beacon major/minor.  When the app is in the foreground, it will also advertise iBeacon.
+
+## How to run
+
+1. Obtain an Apple Developer account
+2. Install XCode 11.5 or newer
+3. Plug in an iPhone with iOS 13.0 or newer to your Mac, and authorize it as a development device with XCode
+4. Using XCode open this project OverflowAreaBeaconRef.xcodeproj
+5. If needed, change the team and package of the project to match your Apple developer account.
+6. Choose your phone as the destination and then choose Product -> Run from XCode
+7. Accept all permission prompts coming from the app  
+
+## Behavior
+
+Upon startup the app will generate a random minor between 0 and 9999 to assign to itself. It will begin advertising this minor (as iBeacon in the foreground and as OverflowArea for when it is in the background.)  Each time you start the app it will get a new beacon minor.  So if using with a second app a new row will show up on the screen when you 
+restart.
+
+## Screen output
+
+<img src='https://i.imgur.com/ILrtQUd.jpg'/>
+
+The screen will show a list of distinct beacon major/minor combinations seen since the app started up.
+It will also show any error conditions with phone state or permissions (if known)
+The beacon type will also be shown (iBeacon vs. OverflowArea).  Typically OverflowArea is seen as they come in much more frequently than iBeacon when the screen is on.
+
+## Log output
+
+```
+2020-08-23 17:47:44.845180-0400 OverflowAreaBeaconRef[488:76358] I just read iBeacon advert with major: 1 minor: 1277
+2020-08-23 17:47:44.909125-0400 OverflowAreaBeaconRef[488:76648] I just read overflow area advert with major: 1 minor: 1277
+```
+
+## Pitfalls
+
+This technique works well on most devices under default conditions. But there are dozens of things that can stop it from working, and it is very easy to cause one to happen
+especially on developer devices.  Below 
+
+
+* Location turned off - No iBeacons will be detected, nothing will be detected in the background
+
+* Location permission not granted - No iBeacons will be detected, nothing will be detected in the background
+
+* "Always" Location permission not granted - Nothing will be detected in the background
+
+* Blutetooth turned off - Nothing will be detected
+
+* Bluetooth permission not granted - No OverflowArea beacons will be detected. No iBeacon will be transmitted
+
+* Airplane mode - Nothing will be detected or transmitted
+
+* Bluetooth stack crash - Nothing will be detected and/or transmitted depending on the nature of the crash
+
+* iOS 14 Beta - Beta builds prevent rotation of advertising in the background. This app has rotation disabled for that reason.
+
+* "Polluted Overflow Area" - If other apps are installed on the device that advertise a bluetooth service, it can pollute the overflow area and make the system unusable.  The reference app is set up to do a collision avoidance to prevent this, but as few as two advertised backgrounds services can defeat this. 
+
+* Custom notification settings - If notificaton setttings are set to disable screen on during notifications (e.g. do not disturb mode), overflow area adverts cannot be detected.
+
+* Proximity Sensor - If the phone is face down on a desk, in a pocket or puse, or held up to your face, the proximity sensor will prevent the screen from going on keeping overflow area advertisements from being read.
+
+* Apple Watch - If a phone is paired with an Apple Watch, by default, notifications will go to the watch.  This defeats screen on notifications. The user will need to change their Watch settings to send notification delivery to the phone thereby allowing screen on notifications.  This prevents reading overflow area advertisements.
+
+* Emitting overflow advertisements in the foreground.  While the reference app is designed to emit iBeacon in the foreground and overflow in the background, it is easy to modify an app to accidentally send overflow area adverts in the foreground.  When this happens, the advertisement will be corrupted by one bit not being set.  This is caused by that bit going into a standard service UUID advertisement instead of the overflow area.  This bit is unpredictable.
+
