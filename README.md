@@ -33,13 +33,13 @@ The beacon type will also be shown (iBeacon vs. OverflowArea).  Typically Overfl
 ```
 ## API
 
-The following API is implementd by the AppDelegate:
+The following API is implemented by the FusedBeaconManager class:
 
 ```
-protocol FusedBeaconInterface {
+class FusedBeaconManager {
     func configure(iBeaconUuid: UUID, overflowMatchingByte: UInt8, major: UInt16, minor: UInt16, measuredPower: Int8)
     func startTx() -> Bool
-    func stopTx()
+    func stopTx() -> Bool
     func startScanning(delegate: OverflowDetectorDelegate) -> Bool
     func stopScanning()
 }
