@@ -224,7 +224,18 @@ public class OverflowAreaUtils {
         }
         return bytes
     }
-    
+
+    public static func bitsToOverflowServiceUuids(bits: [UInt8]) -> [CBUUID] {
+        // Each input array element is a bit value of 1 or 0
+        var cbUuids: [CBUUID] = []
+        for bitPosition in 0...127 {
+            if bits[bitPosition] == 1 {
+                cbUuids.append(TableOfOverflowServiceUuidsByBitPosition[bitPosition])
+            }
+        }
+        return cbUuids
+    }
+
     public static func bytesToOverflowServiceUuids(bytes: [UInt8]) -> [CBUUID] {
         var cbUuids: [CBUUID] = []
         for byteNumber in 0...15 {

@@ -33,13 +33,13 @@ The beacon type will also be shown (iBeacon vs. OverflowArea).  Typically Overfl
 ```
 ## API
 
-The following API is implementd by the AppDelegate:
+The following API is implemented by the FusedBeaconManager class:
 
 ```
-protocol FusedBeaconInterface {
+class FusedBeaconManager {
     func configure(iBeaconUuid: UUID, overflowMatchingByte: UInt8, major: UInt16, minor: UInt16, measuredPower: Int8)
     func startTx() -> Bool
-    func stopTx()
+    func stopTx() -> Bool
     func startScanning(delegate: OverflowDetectorDelegate) -> Bool
     func stopScanning()
 }
@@ -75,7 +75,7 @@ especially on developer devices.  Below
 
 * iOS 14 Beta - Beta builds prevent rotation of advertising in the background. This app has rotation disabled for that reason.
 
-* "Polluted Overflow Area" - If other apps are installed on the device that advertise a bluetooth service, it can pollute the overflow area and make the system unusable.  The reference app is set up to do a collision avoidance to prevent this, but as few as two advertised backgrounds services can defeat this. 
+* "Polluted Overflow Area" - If other apps are installed on the device that advertise a bluetooth service, it can pollute the overflow area and make the system unusable.  The reference app is set up to use a Hamming code to avoid this, but as few as two advertised backgrounds services can defeat this. 
 
 * Custom notification settings - If notificaton setttings are set to disable screen on during notifications (e.g. do not disturb mode), overflow area adverts cannot be detected.
 
@@ -89,7 +89,7 @@ especially on developer devices.  Below
 
 As of iOS 14, starting a new advertisement in the background is disallowed.  This means it is not possible to do either of the following:
 
-1. Rotate the OverflowArea advertisement to avoid collisions.   The CollisionAvoider.swift must have rotate set to false.  Setting it to true is deprecated.  A new collision avoidance startegry will be needed for iOS 14.
+1. Rotate the OverflowArea advertisement to avoid collisions.   A previous strategy of using interleaving to avoid collisions in the CollisionAvoider.swift can no longer be used.  A new startegy uses Hamming codes that can correct against one bit error and detect two bit errors.
 
 2. Switch from iBeacon to Overflow Area when moving to the background.  As a result, we must leave Overflow Area adverts going in the foreground so that when the app shifts to the background, they will already be started.  iBeacon is also advertised in the foreground, but it will stop automatically when the app moves to the background.
 

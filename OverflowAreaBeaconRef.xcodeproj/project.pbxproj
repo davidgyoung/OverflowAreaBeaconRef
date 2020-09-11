@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE3F656F250959FC00F5EE17 /* FusedBeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F656E250959FC00F5EE17 /* FusedBeaconManager.swift */; };
+		EE3F65712509996D00F5EE17 /* HammingEcc.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F65702509996D00F5EE17 /* HammingEcc.swift */; };
 		EEB8F0C724F1777800A57863 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB8F0C624F1777800A57863 /* AppDelegate.swift */; };
 		EEB8F0C924F1777800A57863 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB8F0C824F1777800A57863 /* SceneDelegate.swift */; };
 		EEB8F0CB24F1777800A57863 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB8F0CA24F1777800A57863 /* ContentView.swift */; };
@@ -14,11 +16,12 @@
 		EEB8F0D024F1777A00A57863 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEB8F0CF24F1777A00A57863 /* Preview Assets.xcassets */; };
 		EEB8F0D324F1777A00A57863 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEB8F0D124F1777A00A57863 /* LaunchScreen.storyboard */; };
 		EEB8F0DE24F1781800A57863 /* BackgroundBeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB8F0DB24F1781800A57863 /* BackgroundBeaconManager.swift */; };
-		EEB8F0DF24F1781800A57863 /* ColllisionAvoider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB8F0DC24F1781800A57863 /* ColllisionAvoider.swift */; };
 		EEB8F0E024F1781800A57863 /* OverflowAreaUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB8F0DD24F1781800A57863 /* OverflowAreaUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE3F656E250959FC00F5EE17 /* FusedBeaconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FusedBeaconManager.swift; sourceTree = "<group>"; };
+		EE3F65702509996D00F5EE17 /* HammingEcc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HammingEcc.swift; sourceTree = "<group>"; };
 		EEB8F0C324F1777800A57863 /* OverflowAreaBeaconRef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OverflowAreaBeaconRef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEB8F0C624F1777800A57863 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEB8F0C824F1777800A57863 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,7 +31,6 @@
 		EEB8F0D224F1777A00A57863 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EEB8F0D424F1777A00A57863 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEB8F0DB24F1781800A57863 /* BackgroundBeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundBeaconManager.swift; sourceTree = "<group>"; };
-		EEB8F0DC24F1781800A57863 /* ColllisionAvoider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColllisionAvoider.swift; sourceTree = "<group>"; };
 		EEB8F0DD24F1781800A57863 /* OverflowAreaUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverflowAreaUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,8 +88,9 @@
 			isa = PBXGroup;
 			children = (
 				EEB8F0DB24F1781800A57863 /* BackgroundBeaconManager.swift */,
-				EEB8F0DC24F1781800A57863 /* ColllisionAvoider.swift */,
 				EEB8F0DD24F1781800A57863 /* OverflowAreaUtils.swift */,
+				EE3F656E250959FC00F5EE17 /* FusedBeaconManager.swift */,
+				EE3F65702509996D00F5EE17 /* HammingEcc.swift */,
 			);
 			name = OverflowArea;
 			path = OverflowAreaBeaconRef/OverflowArea;
@@ -168,8 +171,9 @@
 				EEB8F0C724F1777800A57863 /* AppDelegate.swift in Sources */,
 				EEB8F0C924F1777800A57863 /* SceneDelegate.swift in Sources */,
 				EEB8F0CB24F1777800A57863 /* ContentView.swift in Sources */,
-				EEB8F0DF24F1781800A57863 /* ColllisionAvoider.swift in Sources */,
+				EE3F656F250959FC00F5EE17 /* FusedBeaconManager.swift in Sources */,
 				EEB8F0DE24F1781800A57863 /* BackgroundBeaconManager.swift in Sources */,
+				EE3F65712509996D00F5EE17 /* HammingEcc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
