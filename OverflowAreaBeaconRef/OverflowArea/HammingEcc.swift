@@ -141,6 +141,10 @@ class HammingEcc {
 
         // Correct errors
         if (error != 0) {
+            if (error >= workBits.count) {
+                // Too many errors. We do not want to cause an index out of range
+                return nil
+            }
             if (workBits[error - 1] == 1) {
                 workBits[error - 1] = 0
             }
@@ -188,6 +192,15 @@ class HammingEcc {
             return nil
         }
         return outputBits
-    }    
+    }
+    func test() {
+
+        var bits:[UInt8] = []
+        // crash
+        bits = [0,1,0,1,1,0,1,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1]
+        
+        var result = decodeBits(bits)
+        print(result)
+    }
 }
 
