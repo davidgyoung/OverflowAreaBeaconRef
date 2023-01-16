@@ -94,3 +94,7 @@ As of iOS 14, starting a new advertisement in the background is disallowed.  Thi
 2. Switch from iBeacon to Overflow Area when moving to the background.  As a result, we must leave Overflow Area adverts going in the foreground so that when the app shifts to the background, they will already be started.  iBeacon is also advertised in the foreground, but it will stop automatically when the app moves to the background.
 
 This app has been updated with iOS 14 in mind, effecitvely applying the changes above to iOS 13 even though they are not expressedly needed for that platform.
+
+### Status as of iOS 16
+
+Tests on an iPhone 11 running iOS 16.0 on 2023/01/16 show this app and techique continues to work.
