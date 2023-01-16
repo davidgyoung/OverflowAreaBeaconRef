@@ -67,6 +67,8 @@ class FusedBeaconManager: NSObject, CLLocationManagerDelegate, CBCentralManagerD
             return false
         }
         if self.peripheralManager?.state == CBManagerState.poweredOn {
+            NSLog("Bluetooth powered on event received")
+
             if let major = self.beaconMajor, let minor = self.beaconMinor, let uuid = self.beaconUuid, let power = self.measuredPower {
                 self.backgroundBeaconManager.stopAdvertising()
                 // Always set up to advertise overflow (even when we are in th foreground), becasue we are blocked from
@@ -80,6 +82,7 @@ class FusedBeaconManager: NSObject, CLLocationManagerDelegate, CBCentralManagerD
                     // We are in the foreground.  Advertise iBeacon.  But wait a bit before we do or it does not take effect
                     let peripheralData = CLBeaconRegion(uuid: uuid, major: major, minor: minor, identifier: "dummy").peripheralData(withMeasuredPower: power as NSNumber)
                     self.peripheralManager?.startAdvertising(peripheralData as? [String: Any])
+                    NSLog("Starting transmitting")
                 }
                 return true
                 
@@ -90,7 +93,7 @@ class FusedBeaconManager: NSObject, CLLocationManagerDelegate, CBCentralManagerD
             }
         }
         else {
-            NSLog("Cannot start transmitting without bluetooth powered off")
+            NSLog("Cannot start transmitting with bluetooth powered off.  We will retry when we receive the power on event.")
             return false
         }
     }
