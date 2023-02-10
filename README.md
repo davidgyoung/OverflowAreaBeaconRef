@@ -2,6 +2,10 @@
 
 This is a reference app for advertising in the background with the Overflow Area to encode beacon major/minor.  When the app is in the foreground, it will also advertise iBeacon.
 
+![Graphic](overflow-graphic.png)
+
+This technique allows backgrounded iPhones to advertise their identity to other iPhones in the vicinity.  When combined with other techniques, it allows all Android and iPhone devices in the vicinity to advertise their identity to eachother.
+
 ## How to run
 
 1. Obtain an Apple Developer account

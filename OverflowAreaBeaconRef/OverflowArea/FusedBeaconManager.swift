@@ -177,8 +177,8 @@ class FusedBeaconManager: NSObject, CLLocationManagerDelegate, CBCentralManagerD
           // not needed on earlier versions
         }
         // start updating location at beginning just to give us unlimited background running time
-        self.locationManager.startUpdatingLocation()
-        
+        self.locationManager.startUpdatingLocation())
+
         periodicallySendScreenOnNotifications()
         extendBackgroundRunningTime()
     }
